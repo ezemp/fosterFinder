@@ -2,7 +2,9 @@ require("dotenv").config();
 var express = require("express");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
-var login = require("./routes/loginRoutes")
+var login = require("./routes/authenticate")
+var register = require("./routes/register")
+const router = express.Router();
 
 var db = require("./models");
 

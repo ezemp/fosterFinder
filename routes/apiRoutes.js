@@ -9,9 +9,9 @@ module.exports = function(app) {
   });
 
   // Create a new example
-  app.post("/api/examples", function(req, res) {
-    db.Example.create(req.body).then(function(dbExample) {
-      res.json(dbExample);
+  app.post("/api/register", function(req, res) {
+    db.Register.create(req.body).then(function(dbRegister) {
+      res.json(dbRegister);
     });
   });
 
