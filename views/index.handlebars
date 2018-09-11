@@ -1,28 +1,48 @@
-<div id="home">
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <title></title>
+</head>
+ 
+<body>
+    <form id="signin" name="signin" method="post" action="/">
+        <label for="email">Email Address</label>
+        <input class="text" name="email" type="text" />
+        <label for="password">Password</label>
+        <input name="password" type="password" />
+        <input class="btn" type="submit" value="Sign In" />
+    </form>
+ 
+</body>
+ 
+</html>
+
+
+{{!-- <div id="home">
   <div class="container">
     <div class="row">
       <div class="col-8 offset-2">
         <h2>Foster Finder</h2>
-        <form class="clearfix mb-4" action="POST">
+        <form class="clearfix mb-4" action="/authenticate" method="post">
           <div class="form-group">
             <label for="example-text">User Name</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
+            <input type="text" id="email" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
           </div>
           <div class="form-group">
             <label for="example-description">Password</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
+            <input type="text" id="password" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
           </div>
       
-          <button id="up" class="btn btn-primary float-right">Sign Up</button>
+          <button id="signUp" class="btn btn-primary float-right">Sign Up</button>
+          <button  id="signIn" class="btn btn-primary float-right">Sign In</button>
+
         </form>
-        <form class="clearfix mb-4" action="POST">
-        <button  id="in" class="btn btn-primary float-right">Sign In</button>
-        
-        </form>
+       
       </div>
     </div>
   </div>
 </div>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
+<script src="/js/index.js"></script> --}}
