@@ -74,6 +74,8 @@ module.exports = function(passport) {
       }
     )
   );
+
+  // check for creating account
   passport.use(
     "local-signup",
     new LocalStrategy(
@@ -103,7 +105,7 @@ module.exports = function(passport) {
             var userPassword = generateHash(password);
 
             var data = {
-              name: req.body.name,
+              fullname: req.body.fullname,
               email: email,
               password: userPassword,
               address: req.body.address,
