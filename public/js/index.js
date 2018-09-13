@@ -8,13 +8,16 @@ $(".shelter").on("click", function(){
     $(".main").empty();
     console.log(queryURL)
     $.ajax({
-        
         url: queryURL,
         method: 'GET',
-        crossDomain: true,
+        contentType: 'application/json',
+        dataType:'jsonp',
+        
       }).then(function (data) {
         console.log(data.response);
 })})
+
+
 
 // Get references to page elements
 // var $exampleText = $("#example-text");

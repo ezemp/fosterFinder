@@ -4,6 +4,7 @@
 <head>
   <script> type="text/javascript" src=""
   </script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
  
 <body>
@@ -37,6 +38,20 @@
 
   </div>
 
+<script>
+  geocode();
+  function geocode(){
+    var location = "2199 S University Blvd"
+    axios.get("https://maps.googleapis.com/maps/api/geocode/json",{
+      params:{
+        address:location,
+        key: "AIzaSyBXCYDyq-bo7-LPvyRsIngfSOhIDLnDL5Q"
+      }
+    }).then(function(response){
+      console.log(response)
+    })
+  }
+</script>
 
   {{!-- <div class="container">
   <div id="map" class="col-md-8"></div>
