@@ -7,6 +7,12 @@ module.exports = function(app, passport) {
 
   app.get("/dashboard", isLoggedIn, authController.dashboard);
 
+  app.get("/resources", isLoggedIn, authController.resources);
+
+  app.get("/shelters", isLoggedIn, authController.shelters);
+
+  app.get("/account", isLoggedIn, authController.account);
+
   app.get("/logout", authController.logout);
 
   app.post(
@@ -42,4 +48,12 @@ module.exports = function(app, passport) {
 
     res.redirect("/");
   }
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+  
+
+  // app.put("/account", isLoggedIn, authController.update);
 };

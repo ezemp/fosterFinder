@@ -7,13 +7,16 @@ var session  = require('express-session');
 var db = require("./models");
 var app = express();
 var PORT = process.env.PORT || 3000;
-
+var cors = require('cors')
 
 
 // Middleware                          CHeck this (true)?
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
+app.use(cors())
+ 
+
 
 //Passport
 app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true})); // session secret

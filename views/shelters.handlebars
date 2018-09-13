@@ -7,7 +7,7 @@
 </head>
  
 <body>
-    <h2 class="center-align">Foster Finder</h2>
+    <h2 class="center-align"> My Shelters</h2>
     
 <nav>
     <div class="nav-wrapper">
@@ -16,8 +16,8 @@
         <i class="material-icons">menu</i></a>
       <ul class="left hide-on-med-and-down">
         <li>Welcome, {{fullname}}</li>
+        <li><a href="dashboard">Home</a></li>
         <li><a href="account">My Profile</a></li>
-        <li><a href="shelters">My Shelters</a></li>
         <li><a href="resources">Resources</a></li>
 
       </ul>
@@ -27,7 +27,15 @@
     </div>
     
   </nav>
-  
+  <div class="main">
+      <h3>Choose Which Shelter You Would Like To Search</h3>
+      <h4><a class="shelter" href="#">Dumb Friends League</a></h4>
+      <h4><a>Rocky Mountain Feline Rescue</a></h4>
+      <h4><a>Max Fund</a></h4>
+      <h4><a>Denver Animal Shelter</a></h4>
+
+
+  </div>
 
 
   {{!-- <div class="container">
@@ -50,55 +58,7 @@
 </div> --}}
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 75%;
-        margin: 10;
-        padding: 10;
-      }
-    </style>
-    <script>
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 39.677, lng: -104.96},
-          zoom: 15
-        });
-        var infowindow = new google.maps.InfoWindow();
-        var service = new google.maps.places.PlacesService(map);
-        service.getDetails({
-          placeId: ''
-        }, function(place, status) {
-          if (status === google.maps.places.PlacesServiceStatus.OK) {
-            var marker = new google.maps.Marker({
-              map: map,
-              position: place.geometry.location
-            });
-            google.maps.event.addListener(marker, 'click', function() {
-              infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-                'Place ID: ' + place.place_id + '<br>' +
-                place.formatted_address + '</div>');
-              infowindow.open(map, this);
-            });
-          }
-        });
-      }
-    </script>
-		</div>
-	</div>
-		</div>
-	</div>
-</div>
-
-<div id="map"></div>
+    
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXCYDyq-bo7-LPvyRsIngfSOhIDLnDL5Q&libraries=places&callback=initMap"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

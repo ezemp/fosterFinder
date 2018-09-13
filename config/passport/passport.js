@@ -62,6 +62,7 @@ module.exports = function(passport) {
             }
 
             var userinfo = user.get();
+            // console.log(userinfo);
             return done(null, userinfo);
           })
           .catch(function(err) {

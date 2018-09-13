@@ -1,38 +1,20 @@
+// // http://api.petfinder.com/shelter.find?key=6c9f4c0537e24d967a967ac2ed603f91&location=80104
+// require("dotenv").config();
+var name = "Dumb+Friends+League"
+// +Pet_finder_key;
 
-function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: gAddress,
-    zoom: 15
-  });
-  var infowindow = new google.maps.InfoWindow();
-  var service = new google.maps.places.PlacesService(map);
-  service.getDetails({
-    placeId: ''
-  }, function(place, status) {
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-      var marker = new google.maps.Marker({
-        map: map,
-        position: place.geometry.location
-      });
-      google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-          'Place ID: ' + place.place_id + '<br>' +
-          place.formatted_address + '</div>');
-        infowindow.open(map, this);
-      });
-    }
-  });
-}
-var geocoder = new google.maps.Geocoder();
-function geocodeAddress(geocoder, resultsMap) {
-  var gAddress = req.user.address.val().trim();
-  geocoder.geocode({
-    'gAddress': gAddress
-  }) return gAddress,function(results, status){
-    if(status === "OK"){
-      resultsMap.setCenter(results[0].geometry.location);
-      resultsMap.setZoom(8);
-    }}}
+$(".shelter").on("click", function(){
+    var queryURL = 'http://api.petfinder.com/shelter.find?key=6c9f4c0537e24d967a967ac2ed603f91&location=Denver+CO&name='+name
+    $(".main").empty();
+    console.log(queryURL)
+    $.ajax({
+        
+        url: queryURL,
+        method: 'GET',
+        crossDomain: true,
+      }).then(function (data) {
+        console.log(data.response);
+})})
 
 // Get references to page elements
 // var $exampleText = $("#example-text");
@@ -133,4 +115,3 @@ function geocodeAddress(geocoder, resultsMap) {
 // // Add event listeners to the submit and delete buttons
 // $submitBtn.on("click", handleFormSubmit);
 // $exampleList.on("click", ".delete", handleDeleteBtnClick);
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXCYDyq-bo7-LPvyRsIngfSOhIDLnDL5Q&libraries=places&callback=initMap"></script>
