@@ -7,6 +7,12 @@ module.exports = function(app, passport) {
 
   app.get("/dashboard", isLoggedIn, authController.dashboard);
 
+  app.get("/resources", isLoggedIn, authController.resources);
+
+  app.get("/shelters", isLoggedIn, authController.shelters);
+
+  app.get("/account", isLoggedIn, authController.account);
+
   app.get("/logout", authController.logout);
 
   app.post(
@@ -33,4 +39,6 @@ module.exports = function(app, passport) {
 
     res.redirect("/");
   }
+
+  // app.put("/account", isLoggedIn, authController.update);
 };

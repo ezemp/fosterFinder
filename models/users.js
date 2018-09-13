@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
     children: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
-    }
+    },
   });
   return User;
 };

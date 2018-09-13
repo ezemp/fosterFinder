@@ -8,6 +8,8 @@ var db = require("./models");
 var app = express();
 var PORT = process.env.PORT || 3000;
 
+
+
 // Middleware                          CHeck this (true)?
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -28,8 +30,8 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // Routes
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
+// require("./routes/apiRoutes")(app);
+// require("./routes/htmlRoutes")(app);
 var authRoute = require('./routes/auth.js')(app,passport);
 //load passport strategies
 require('./config/passport/passport.js')(passport, db.user);
