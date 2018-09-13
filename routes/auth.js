@@ -17,6 +17,15 @@ module.exports = function(app, passport) {
       failureRedirect: "/"
     })
   );
+  exports.dashboard = function(req, res) {
+  
+    var hbsObject = {
+    fullname: req.user.fullname,
+    address: req.user.address,
+    homeType: req.user.homeType
+  }
+  res.render("dashboard", hbsObject);
+};
 
   app.post(
     "/signup",
