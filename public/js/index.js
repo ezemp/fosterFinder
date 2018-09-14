@@ -1,21 +1,21 @@
 // // http://api.petfinder.com/shelter.find?key=6c9f4c0537e24d967a967ac2ed603f91&location=80104
 // require("dotenv").config();
-var name = "Dumb+Friends+League"
+// var name = "Dumb+Friends+League"
 // +Pet_finder_key;
 
-$(".shelter").on("click", function(){
-    var queryURL = 'http://api.petfinder.com/shelter.find?key=6c9f4c0537e24d967a967ac2ed603f91&location=Denver+CO&name='+name
-    $(".main").empty();
-    console.log(queryURL)
-    $.ajax({
-        url: queryURL,
-        method: 'GET',
-        contentType: 'application/json',
-        dataType:'jsonp',
+// $(".shelter").on("click", function(){
+//     var queryURL = 'http://api.petfinder.com/shelter.find?key=6c9f4c0537e24d967a967ac2ed603f91&location=Denver+CO&name='+name
+//     $(".main").empty();
+//     console.log(queryURL)
+//     $.ajax({
+//         url: queryURL,
+//         method: 'GET',
+//         contentType: 'application/json',
+//         dataType:'jsonp',
         
-      }).then(function (data) {
-        console.log(data.response);
-})})
+//       }).then(function (data) {
+//         console.log(data.response);
+// })})
 
 
 

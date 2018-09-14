@@ -110,6 +110,9 @@ module.exports = function(passport) {
               email: email,
               password: userPassword,
               address: req.body.address,
+              city: req.body.city,
+              state: req.body.state,
+              zip: req.body.zip,
               homeType: req.body.homeType,
               children: req.body.children
             };

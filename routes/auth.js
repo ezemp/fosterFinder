@@ -15,6 +15,10 @@ module.exports = function(app, passport) {
 
   app.get("/logout", authController.logout);
 
+  app.get("/petfind", isLoggedIn, authController.petfind);
+  app.get("/findshelter", isLoggedIn, authController.findshelter)
+
+
   app.post(
     "/",
     passport.authenticate("local-signin", {
@@ -26,9 +30,14 @@ module.exports = function(app, passport) {
   exports.dashboard = function(req, res) {
   
     var hbsObject = {
-    fullname: req.user.fullname,
-    address: req.user.address,
-    homeType: req.user.homeType
+      fullname: req.user.fullname,
+      address: req.user.address,
+      city: req.user.city,
+      state: req.user.state,
+      zip: req.user.zip,
+      homeType: req.user.homeType,
+      email: req.user.email,
+      children: req.user.children
   }
   res.render("dashboard", hbsObject);
 };
