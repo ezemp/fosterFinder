@@ -53,9 +53,19 @@ exports.dashboard = function(req, res) {
     zip: req.user.zip,
     homeType: req.user.homeType,
     email: req.user.email,
-    children: req.user.children
+    children: req.user.children,
   }
-  res.render("dashboard", hbsObject);
+  var address = req.body.address
+  var queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=2100+w+Berry+ave&key=AIzaSyBXCYDyq-bo7-LPvyRsIngfSOhIDLnDL5Q'
+  request(queryURL, function (error, response, body) {
+  console.log("error", error)
+  console.log('body',body)
+  hbsObject.lat= body.results[0].geometry.bounds.northeast.lat
+  hbsObject.lng= body.results[0].geometry.bounds.northeast.lng
+  res.render("dashboard",hbsObject)
+  })  // console.log("stausCode", response&&response
+  
+  // res.render("dashboard", hbsObject);
 };
 exports.logout = function(req, res) {
   req.session.destroy(function(err) {
@@ -92,8 +102,8 @@ exports.petfind = function(req, res) {
   request(queryURL, function (error, response, body) {
   console.log("error", error)
     // console.log("stausCode", response&&response.statusCode )
-    console.log('body:', body.shelter.latitude)
-    console.log("body", body.shelter.longitude)
+    // console.log('body:', body.shelter.latitude)
+    // console.log("body", body.shelter.longitude)
   })
   // res.render("resources", hbsObject);
 };
