@@ -27,20 +27,20 @@ module.exports = function(app, passport) {
       failureRedirect: "/"
     })
   );
-  exports.dashboard = function(req, res) {
+//   exports.dashboard = function(req, res) {
   
-    var hbsObject = {
-      fullname: req.user.fullname,
-      address: req.user.address,
-      city: req.user.city,
-      state: req.user.state,
-      zip: req.user.zip,
-      homeType: req.user.homeType,
-      email: req.user.email,
-      children: req.user.children
-  }
-  res.render("dashboard", hbsObject);
-};
+//     var hbsObject = {
+//       fullname: req.user.fullname,
+//       address: req.user.address,
+//       city: req.user.city,
+//       state: req.user.state,
+//       zip: req.user.zip,
+//       homeType: req.user.homeType,
+//       email: req.user.email,
+//       children: req.user.children
+//   }
+//   res.render("dashboard", hbsObject);
+// };
 
   app.post(
     "/signup",

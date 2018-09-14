@@ -1,5 +1,7 @@
 var exports = (module.exports = {});
-var request = require('request')
+var request = require("request");
+var parseString = require('xml2js').parseString;
+
 
 exports.signup = function(req, res) {
   res.render("signup");
@@ -15,7 +17,7 @@ exports.resources = function(req, res) {
     state: req.user.state,
     zip: req.user.zip,
     homeType: req.user.homeType
-  }
+  };
   res.render("resources", hbsObject);
 };
 exports.account = function(req, res) {
@@ -28,7 +30,7 @@ exports.account = function(req, res) {
     homeType: req.user.homeType,
     email: req.user.email,
     children: req.user.children
-  }
+  };
   res.render("account", hbsObject);
 };
 exports.shelters = function(req, res) {
@@ -41,7 +43,7 @@ exports.shelters = function(req, res) {
     homeType: req.user.homeType,
     email: req.user.email,
     children: req.user.children
-  }
+  };
   res.render("shelters", hbsObject);
 };
 exports.dashboard = function(req, res) {
@@ -53,19 +55,88 @@ exports.dashboard = function(req, res) {
     zip: req.user.zip,
     homeType: req.user.homeType,
     email: req.user.email,
-    children: req.user.children,
-  }
-  var address = req.body.address
-  var queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=2100+w+Berry+ave&key=AIzaSyBXCYDyq-bo7-LPvyRsIngfSOhIDLnDL5Q'
-  request(queryURL, function (error, response, body) {
-  console.log("error", error)
-  console.log('body',body)
-  hbsObject.lat= body.results[0].geometry.bounds.northeast.lat
-  hbsObject.lng= body.results[0].geometry.bounds.northeast.lng
-  res.render("dashboard",hbsObject)
-  })  // console.log("stausCode", response&&response
+    children: req.user.children
+  };
   
-  // res.render("dashboard", hbsObject);
+  var convertedAddress = req.user.address.replace(/ /g, "+");
+
+  var queryURL =
+    "https://maps.googleapis.com/maps/api/geocode/json?address=" + convertedAddress + "&key=AIzaSyBXCYDyq-bo7-LPvyRsIngfSOhIDLnDL5Q";
+  request(queryURL, function(error, response, body) {
+    var checkLat = JSON.parse(body).results[0];
+    var checkLng = JSON.parse(body).results[0];
+   
+    if (checkLat && checkLng) {
+   
+      hbsObject.userLat = JSON.parse(body).results[0].geometry.location.lat;
+      hbsObject.userLng = JSON.parse(body).results[0].geometry.location.lng;
+    } else {
+      hbsObject.lat = 39.6766368;
+      hbsObject.lng = -104.9614844;
+    }
+
+    // were going to have to make a petfinder api call based on user.address
+
+    // then were going to have to take the results
+    // loop thru the limit(10 shelters)
+    // grab each lat long
+    // then make a forloop that makes a marker for each one
+
+    // console.log("ERROR: ", error);
+    // console.log("RESPONSE: ", error);
+    // console.log("BODY: ", body);
+
+    // console.log("BODY: ", JSON.parse(body).results[0].geometry.location);
+    // console.log("DRILLING:=====", JSON.parse(body).results[0].geometry.location.lat);
+    // res.render("dashboard", hbsObject);
+  }); // console.log("stausCode", response&&response
+var zipcode = req.user.zip;
+  console.log(zipcode);
+  var petQueryURL ="https://api.petfinder.com/shelter.find?&key=6c9f4c0537e24d967a967ac2ed603f91&location=" + zipcode + "&count=10";
+  request(petQueryURL, function(error, response, body) {
+    var xml = body;
+    parseString(xml, function (err, result) {
+    // console.log(result.petfinder.shelters[0].shelter[0].latitude);
+    // console.log(result.petfinder.shelters[0].shelter[0].longitude);
+    var sheltersArray = result.petfinder.shelters[0].shelter;
+    var sheltersLat = [];
+    var sheltersLng = [];
+
+    var parsedLat = result.petfinder.shelters[0].shelter[0].latitude;
+    var parsedLng = result.petfinder.shelters[0].shelter[0].longitude;
+    console.log("SHELTERS ARRAY============", sheltersArray);
+    // console.log(hbsObject);
+      for ( i = 0; i < sheltersArray.length; i++) {
+        // console.log("shelter Lat", i, ": ", result.petfinder.shelters[0].shelter[i].latitude);
+        // console.log("shelter Long", i, ": ", result.petfinder.shelters[0].shelter[i].longitude);
+        sheltersLat.push(result.petfinder.shelters[0].shelter[i].latitude);
+        sheltersLng.push(result.petfinder.shelters[0].shelter[i].longitude);
+        hbsObject.shelterLat = sheltersLat;
+        hbsObject.shelterLng = sheltersLng;
+
+      }
+      
+console.log(hbsObject);
+      
+    // console.log("SHELTER1=====",result.petfinder.shelters[0].shelter[0].latitude);
+    // console.log("SHELTER1=====",result.petfinder.shelters[0].shelter[1].latitude);
+    // console.log("SHELTER1=====",result.petfinder.shelters[0].shelter[2].latitude)
+    // console.log("SHELTER1=====",result.petfinder.shelters[0].shelter[3].latitude)
+    // console.log("SHELTER1=====",result.petfinder.shelters[0].shelter[4].latitude)
+    // console.log("SHELTER1=====",result.petfinder.shelters[0].shelter[5].latitude)
+    // console.log("SHELTER1=====",result.petfinder.shelters[0].shelter[6].latitude)
+
+
+res.render("dashboard", hbsObject);
+
+  });
+
+    console.log("error", error);
+    // console.log("stausCode", response&&response.statusCode )
+    // console.log('body:', body.shelter.latitude)
+    // console.log("body", result.$.shelters);
+  });
+  
 };
 exports.logout = function(req, res) {
   req.session.destroy(function(err) {
@@ -82,10 +153,10 @@ exports.petfind = function(req, res) {
     homeType: req.user.homeType,
     email: req.user.email,
     children: req.user.children
-  }
+  };
   res.send(hbsObject);
- };
- exports.findshelter = function(req, res) {
+};
+exports.findshelter = function(req, res) {
   var hbsObject = {
     fullname: req.user.fullname,
     address: req.user.address,
@@ -95,16 +166,8 @@ exports.petfind = function(req, res) {
     homeType: req.user.homeType,
     email: req.user.email,
     children: req.user.children
-  }
-  var zipcode = req.user.zip
-  console.log(zipcode)
-  var queryURL = 'http://api.petfinder.com/shelter.find?key=6c9f4c0537e24d967a967ac2ed603f91&location=' +zipcode+"&count=10";
-  request(queryURL, function (error, response, body) {
-  console.log("error", error)
-    // console.log("stausCode", response&&response.statusCode )
-    // console.log('body:', body.shelter.latitude)
-    // console.log("body", body.shelter.longitude)
-  })
+  };
+  
   // res.render("resources", hbsObject);
 };
 // exports.update = function(req, res) {
