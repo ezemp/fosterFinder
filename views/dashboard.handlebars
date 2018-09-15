@@ -1,1 +1,121 @@
- <h2>Welcome to the Dashboard!</h2>
+<!DOCTYPE html>
+<html> 
+ 
+<head>
+  <script> type="text/javascript" src=""
+  </script>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+</head>
+ 
+<body>
+    <h2 class="center-align">Foster Finder</h2>
+    
+<nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo"></a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+        <i class="material-icons">menu</i></a>
+      <ul class="left hide-on-med-and-down">
+        <li>Welcome, {{fullname}}</li>
+        <li><a href="account">My Profile</a></li>
+        <li><a href="resources">Resources</a></li>
+
+      </ul>
+      <form class = "left-align" id="signout" name ="signout" method="get" action ="/logout">
+        <input class ="btn" type="submit" value ="logout">
+    </form>
+    </div>
+    
+  </nav>
+  
+
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      
+      #map {
+        height: 100%;
+      }
+     
+      html, body {
+        height: 75%;
+        margin: 10;
+        padding: 10;
+      }
+    </style>
+    <script>
+     
+
+      var sheltersLat = "{{shelterLat}}"
+      var sheltersLng = "{{shelterLng}}"
+      var sheltersName = "{{shelterName}}"
+    
+      var parseShelterLat =JSON.stringify(sheltersLat);
+      var noInc = sheltersName.replace("Inc.,","")
+      
+      var parseShelterLng = JSON.stringify(sheltersLng)
+      var arrayLat = parseShelterLat.split(",")
+      var arrayLng = parseShelterLng.split(",")
+      var arrayName = noInc.split(",")
+      
+       
+
+        var lat = {{userLat}};
+        var lng = {{userLng}};
+    
+       function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: lat, lng: lng},
+          zoom: 14
+        });
+        setTimeout(createPins,2000)
+        function createPins(){
+        for(i=1 ; i<arrayLat.length; i++){
+
+          var floatLat = parseFloat(arrayLat[i])
+          var floatLng = parseFloat(arrayLng[i])
+         
+              
+       var marker = new google.maps.Marker({
+            position: { lat: floatLat, lng: floatLng }, 
+            map: map,
+            title: arrayName[i],
+           
+            
+         })
+         marker.set("id",arrayId)
+         var sheltersId = "{{shelterId}}"
+         var parseShelterId = JSON.stringify(sheltersId)
+          var arrayId = parseShelterId.split(",")
+           marker.addListener('click', function() {
+             
+             var newForm =$("<form  class ='favPin' name='favPin' method='get' action='/pets'>")
+            var favShelterName = this.title
+            newForm.append('<input class="btn" type="submit" value="'+favShelterName+'">');
+            $("#favButton").append(newForm)
+        });
+         };
+       } 
+      }
+    </script> 
+		</div>
+	</div>
+		</div>
+	</div>
+</div>
+
+<div id="map"></div>
+<div id="favButton"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXCYDyq-bo7-LPvyRsIngfSOhIDLnDL5Q&libraries=places&callback=initMap"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript" ></script>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</body>
+</html>

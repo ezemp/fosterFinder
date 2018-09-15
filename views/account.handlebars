@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html> 
+ 
+<head>
+  <script> type="text/javascript" src=""
+  </script>
+</head>
+ 
+<body>
+    <h2 class="center-align">Profile</h2>
+    
+<nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo"></a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+        <i class="material-icons">menu</i></a>
+      <ul class="left hide-on-med-and-down">
+        <li>Welcome, {{fullname}}</li>
+        <li><a href="dashboard">Home</a></li>
+        
+        <li><a href="resources">Resources</a></li>
+
+      </ul>
+      <form class = "left-align" id="signout" name ="signout" method="get" action ="/logout">
+        <input class ="btn" type="submit" value ="logout">
+    </form>
+    </div>
+    
+  </nav>
+  
+<ul>
+    <li>Full Name:{{fullname}}</li>
+    <li>Email:{{email}}</li>
+    <li>Current Address:{{address}}</li>
+    <li>Home Type:{{homeType}}</li>
+    <li>Do you have children?:{{children}}</li>
+    <li>{{shelter}}</li>
+
+</ul>
+
+  
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXCYDyq-bo7-LPvyRsIngfSOhIDLnDL5Q&libraries=places&callback=initMap"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript" ></script>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+   
+
+
+         
+  
+  
+</body>
+ 
+</html>
