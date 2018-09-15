@@ -92,7 +92,7 @@ exports.dashboard = function(req, res) {
   }); // console.log("stausCode", response&&response
 var zipcode = req.user.zip;
   console.log(zipcode);
-  var petQueryURL ="https://api.petfinder.com/shelter.find?&key=6c9f4c0537e24d967a967ac2ed603f91&location=" + zipcode + "&count=10";
+  var petQueryURL ="https://api.petfinder.com/shelter.find?&key=6c9f4c0537e24d967a967ac2ed603f91&location=" + zipcode + "&count=11";
   request(petQueryURL, function(error, response, body) {
     var xml = body;
     parseString(xml, function (err, result) {
@@ -101,9 +101,11 @@ var zipcode = req.user.zip;
     var sheltersArray = result.petfinder.shelters[0].shelter;
     var sheltersLat = [];
     var sheltersLng = [];
+    var sheltersName = [];
 
     var parsedLat = result.petfinder.shelters[0].shelter[0].latitude;
     var parsedLng = result.petfinder.shelters[0].shelter[0].longitude;
+    var parsedName = result.petfinder.shelters[0].shelter[0].name;
     console.log("SHELTERS ARRAY============", sheltersArray);
     // console.log(hbsObject);
       for ( i = 0; i < sheltersArray.length; i++) {
@@ -111,12 +113,14 @@ var zipcode = req.user.zip;
         // console.log("shelter Long", i, ": ", result.petfinder.shelters[0].shelter[i].longitude);
         sheltersLat.push(result.petfinder.shelters[0].shelter[i].latitude);
         sheltersLng.push(result.petfinder.shelters[0].shelter[i].longitude);
+        sheltersName.push(result.petfinder.shelters[0].shelter[i].name);
         hbsObject.shelterLat = sheltersLat;
         hbsObject.shelterLng = sheltersLng;
+        hbsObject.shelterName = sheltersName
 
       }
       
-console.log(hbsObject);
+console.log("HBS CHECK==================="+hbsObject.shelterLat);
       
     // console.log("SHELTER1=====",result.petfinder.shelters[0].shelter[0].latitude);
     // console.log("SHELTER1=====",result.petfinder.shelters[0].shelter[1].latitude);

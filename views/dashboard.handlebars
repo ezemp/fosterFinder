@@ -67,13 +67,22 @@
       // This example requires the Places library. Include the libraries=places
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-      var shelterslocations = "{{shelterLat}}"
-      console.log("++++++++", shelterslocations);
-      for(i=0; i<shelterslocations.length; i++){
-          console.log("shelter", i, ": ", "{{shelterLat.[i]}}");
-          
-
-      }
+      var sheltersLat = "{{shelterLat}}"
+      var sheltersLng = "{{shelterLng}}"
+      var sheltersName = "{{shelterName}}"
+      console.log(sheltersName)
+      var parseShelterLat =JSON.stringify(sheltersLat);
+      var noInc = sheltersName.replace("Inc.,","")
+      console.log("+++++++++", noInc)
+      var parseShelterLng = JSON.stringify(sheltersLng)
+      var arrayLat = parseShelterLat.split(",")
+      var arrayLng = parseShelterLng.split(",")
+      var arrayName = noInc.split(",")
+      console.log("++++++++", arrayLat);
+      console.log("+++++++++++", arrayLng)
+      console.log("++++++++++++++++++", arrayName)
+      
+       
 
         var lat = {{userLat}};
         console.log("========", lat)
@@ -82,13 +91,23 @@
        function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: lat, lng: lng},
-          zoom: 15
+          zoom: 14
         });
+        for(i=1 ; i<arrayLat.length; i++){
+          console.log("shelter", i, ": ", parseFloat(arrayLat[i]));
+          console.log("shelter", i, ": ", parseFloat(arrayLng[i]));
+          console.log("shelter", i, ": ", arrayName[i]);
+          var floatLat = parseFloat(arrayLat[i])
+          var floatLng = parseFloat(arrayLng[i])
+          console.log(floatLat)
+          console.log(floatLng)
+         
+         
        var marker = new google.maps.Marker({
-            position: { lat: 37.2799, lng: -121.9566 }, //this is where we wanna run a loop to plug values in
+            position: { lat: floatLat, lng: floatLng }, //this is where we wanna run a loop to plug values in
             map: map,
-            title: 'Hello World!'
-         });
+            title: arrayName[i]
+         })};
       }
     </script> 
 		</div>
