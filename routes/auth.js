@@ -1,4 +1,5 @@
 var authController = require("../controllers/authcontroller.js");
+var db = require("../models");
 
 module.exports = function(app, passport) {
   app.get("/signup", authController.signup);
@@ -8,16 +9,12 @@ module.exports = function(app, passport) {
   app.get("/dashboard", isLoggedIn, authController.dashboard);
 
   app.get("/resources", isLoggedIn, authController.resources);
-
-  app.get("/shelters", isLoggedIn, authController.shelters);
-
+  app.get("/pets", isLoggedIn, authController.pets);
   app.get("/account", isLoggedIn, authController.account);
 
   app.get("/logout", authController.logout);
 
   app.get("/petfind", isLoggedIn, authController.petfind);
-  app.get("/findshelter", isLoggedIn, authController.findshelter)
-
 
   app.post(
     "/",
@@ -27,21 +24,6 @@ module.exports = function(app, passport) {
       failureRedirect: "/"
     })
   );
-//   exports.dashboard = function(req, res) {
-  
-//     var hbsObject = {
-//       fullname: req.user.fullname,
-//       address: req.user.address,
-//       city: req.user.city,
-//       state: req.user.state,
-//       zip: req.user.zip,
-//       homeType: req.user.homeType,
-//       email: req.user.email,
-//       children: req.user.children
-//   }
-//   res.render("dashboard", hbsObject);
-// };
-
   app.post(
     "/signup",
     passport.authenticate("local-signup", {
@@ -62,7 +44,5 @@ module.exports = function(app, passport) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
-  
 
-  // app.put("/account", isLoggedIn, authController.update);
 };

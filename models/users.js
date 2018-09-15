@@ -15,6 +15,10 @@ module.exports = function(sequelize, DataTypes) {
         len: [6]
       }
     },
+    homeType:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     address: {
       type: DataTypes.STRING,
       allowNull: false
@@ -34,7 +38,12 @@ module.exports = function(sequelize, DataTypes) {
     children: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    shelters:{
+      type: DataTypes.STRING,
+      allowNull: true
     }
   });
+  
   return User;
 };

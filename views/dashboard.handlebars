@@ -4,6 +4,10 @@
 <head>
   <script> type="text/javascript" src=""
   </script>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
 </head>
  
 <body>
@@ -17,7 +21,6 @@
       <ul class="left hide-on-med-and-down">
         <li>Welcome, {{fullname}}</li>
         <li><a href="account">My Profile</a></li>
-        <li><a href="shelters">My Shelters</a></li>
         <li><a href="resources">Resources</a></li>
 
       </ul>
@@ -29,34 +32,14 @@
   </nav>
   
 
-
-  {{!-- <div class="container">
-  <div id="map" class="col-md-8"></div>
-  <div id="placesList" class="col-md-4"></div>
-</div>
-<!--This is our template. -->
-<!--Data will be inserted in its according place, replacing the brackets.-->
-<div class="container">
-  <div id="map" class="col-md-8"></div>
-  <div id="placesList" class="col-md-4"></div>
-<script id="maps" type="text/x-handlebars-template">
-  {{#each places}}
-    <article class="media">
-      <div class="media-center" {{#if this.img}}  style="background-image:url({{this.img}} )"{{/if}}></div>
-      <div class="media-body"><a><h5 class="media-heading">{{this.name}}<span class="badge">{{this.rating}}</span></h5></a></div>
-    </article>
-  {{/each}}
-</script>
-</div> --}}
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
+      
       #map {
         height: 100%;
       }
-      /* Optional: Makes the sample page fill the window. */
+     
       html, body {
         height: 75%;
         margin: 10;
@@ -64,50 +47,58 @@
       }
     </style>
     <script>
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+     
+
       var sheltersLat = "{{shelterLat}}"
       var sheltersLng = "{{shelterLng}}"
       var sheltersName = "{{shelterName}}"
-      console.log(sheltersName)
+    
       var parseShelterLat =JSON.stringify(sheltersLat);
       var noInc = sheltersName.replace("Inc.,","")
-      console.log("+++++++++", noInc)
+      
       var parseShelterLng = JSON.stringify(sheltersLng)
       var arrayLat = parseShelterLat.split(",")
       var arrayLng = parseShelterLng.split(",")
       var arrayName = noInc.split(",")
-      console.log("++++++++", arrayLat);
-      console.log("+++++++++++", arrayLng)
-      console.log("++++++++++++++++++", arrayName)
       
        
 
         var lat = {{userLat}};
-        console.log("========", lat)
         var lng = {{userLng}};
-        console.log("========", lng)
+    
        function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: lat, lng: lng},
           zoom: 14
         });
+        setTimeout(createPins,2000)
+        function createPins(){
         for(i=1 ; i<arrayLat.length; i++){
-          console.log("shelter", i, ": ", parseFloat(arrayLat[i]));
-          console.log("shelter", i, ": ", parseFloat(arrayLng[i]));
-          console.log("shelter", i, ": ", arrayName[i]);
+
           var floatLat = parseFloat(arrayLat[i])
           var floatLng = parseFloat(arrayLng[i])
-          console.log(floatLat)
-          console.log(floatLng)
          
-         
+              
        var marker = new google.maps.Marker({
-            position: { lat: floatLat, lng: floatLng }, //this is where we wanna run a loop to plug values in
+            position: { lat: floatLat, lng: floatLng }, 
             map: map,
-            title: arrayName[i]
-         })};
+            title: arrayName[i],
+           
+            
+         })
+         marker.set("id",arrayId)
+         var sheltersId = "{{shelterId}}"
+         var parseShelterId = JSON.stringify(sheltersId)
+          var arrayId = parseShelterId.split(",")
+           marker.addListener('click', function() {
+             
+             var newForm =$("<form  class ='favPin' name='favPin' method='get' action='/pets'>")
+            var favShelterName = this.title
+            newForm.append('<input class="btn" type="submit" value="'+favShelterName+'">');
+            $("#favButton").append(newForm)
+        });
+         };
+       } 
       }
     </script> 
 		</div>
@@ -117,6 +108,7 @@
 </div>
 
 <div id="map"></div>
+<div id="favButton"></div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXCYDyq-bo7-LPvyRsIngfSOhIDLnDL5Q&libraries=places&callback=initMap"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -125,13 +117,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript" ></script>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-   
-
-
-         
-  
-  
 </body>
- 
 </html>

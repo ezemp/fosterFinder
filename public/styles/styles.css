@@ -5,3 +5,52 @@
   margin: 14px;
   float: right;
 }
+html {
+  font-family: "Nunito";
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Raleway";
+}
+.card-title {
+  font-weight: bolder;
+}
+.background-image {
+  background: url("http://placekitten.com/1920/1080");
+  background-position: center;
+  background-size: cover;
+  display: block;
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 1;
+  height: 100%;
+}
+.title h3 {
+  margin: 0;
+  padding: 40px 0;
+  position: relative;
+  z-index: 2;
+}
+.card {
+  top: 40px;
+  position: relative;
+  z-index: 4;
+  bottom: 40px;
+  overflow: hidden;
+}
+.card.grey {
+  opacity: .75;
+}
+.resor{
+  background-image:url("https://animalwellnessmagazine.com/wp-content/uploads/Doug-the-pug.jpg");
+  background-position: bottom;
+  background-size:cover;
+  height: 100%;
+  width: 100%;
+
+}

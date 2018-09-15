@@ -37,7 +37,6 @@ module.exports = function(passport) {
       },
 
       function(req, email, password, done) {
-        // var User = user;
 
         var isValidPassword = function(userpass, password) {
           return bCrypt.compareSync(password, userpass);
@@ -66,7 +65,6 @@ module.exports = function(passport) {
             return done(null, userinfo);
           })
           .catch(function(err) {
-            console.log("Error:", err);
 
             return done(null, false, {
               message: "Something went wrong with your Signin"

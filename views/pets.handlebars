@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html> 
+ 
+<head>
+  <script> type="text/javascript" src=""
+  </script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+</head>
+ 
+<body>
+    <h2 class="center-align">Pets</h2>
+    
+<nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo"></a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+        <i class="material-icons">menu</i></a>
+      <ul class="left hide-on-med-and-down">
+        <li>Welcome, {{fullname}}</li>
+        <li><a href="dashboard">Home</a></li>
+        <li><a href="account">My Profile</a></li>
+        <li><a href="resources">Resources</a></li>
+
+      </ul>
+      <form class = "left-align" id="signout" name ="signout" method="get" action ="/logout">
+        <input class ="btn" type="submit" value ="logout">
+    </form>
+    </div>
+    
+  </nav>
+  
+  <div class="pets"></div>
+
+<script>
+      var petsName = [ 'Midnight',
+  'Sour Cream',
+  'Giselle',
+  'Champ',
+  'Michelle',
+  'Corona',
+  'Pilsner',
+  'Yvette',
+  'Zaria',
+  'Loba',
+  'Lobo',
+  'Ralph',
+  'Peyton',
+  'Ferdi',
+  'Spanky',
+  'Sadie',
+  'Ruth',
+  'Zach',
+  'Cali',
+  'Gus',
+  'Mother Mary',
+  'Rupert',
+  'Darla',
+  'Eleanor',
+  'Emma' ]
+      var petsBreed = [ 'Cocker Spaniel',
+  'Bull Terrier',
+  'Mixed Breed',
+  'Golden Retriever',
+  'Labrador Retriever',
+  'Australian Cattle Dog / Blue Heeler',
+  'Australian Cattle Dog / Blue Heeler',
+  'Australian Cattle Dog / Blue Heeler',
+  'Catahoula Leopard Dog',
+  'Siberian Husky',
+  'Siberian Husky',
+  'Border Collie',
+  'Shar Pei',
+  'Mixed Breed',
+  'Bull Terrier',
+  'Australian Shepherd',
+  'Border Collie',
+  'Bull Terrier',
+  'Border Collie',
+  'Labrador Retriever',
+  'Catahoula Leopard Dog',
+  'Shepherd',
+  'Shepherd',
+  'Catahoula Leopard Dog',
+  'Shepherd' ]
+      var petsPhoto = [  'http://photos.petfinder.com/photos/pets/41532298/1/?bust=1536953919&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/41532316/1/?bust=1536953909&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/41821343/1/?bust=1536953900&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/41907682/1/?bust=1536953899&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42082808/1/?bust=1536953915&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42151701/1/?bust=1536953923&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42151714/1/?bust=1536953917&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42151720/1/?bust=1536953890&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42151724/1/?bust=1536953912&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42286108/1/?bust=1536953928&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42286109/1/?bust=1536953915&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42349117/1/?bust=1536953910&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42375931/1/?bust=1536953926&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42513882/1/?bust=1536953925&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42513888/1/?bust=1536953918&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42544547/1/?bust=1536953898&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42567599/1/?bust=1536953916&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42604893/1/?bust=1536953902&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42669036/1/?bust=1536953904&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42669037/1/?bust=1536953912&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42669038/1/?bust=1536953904&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42698293/1/?bust=1536953924&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42710298/1/?bust=1536953911&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42710299/1/?bust=1536953894&width=300&-pn.jpg',
+    
+   'http://photos.petfinder.com/photos/pets/42710300/1/?bust=1536953897&width=300&-pn.jpg',
+     ]
+      for(var i = 0; i<25;i++){
+        var newDiv = $("<div>")
+        newDiv.append($("<h3>"+petsName[i]+"</h3>"))
+        newDiv.append($("<h4>"+petsBreed[i]+"</h4>"))
+        newDiv.append($("<img src='"+petsPhoto[i]+"'>"))
+         $(".pets").append(newDiv)
+         
+      }
+      
+</script>
+
+ 
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXCYDyq-bo7-LPvyRsIngfSOhIDLnDL5Q&libraries=places&callback=initMap"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript" ></script>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+   
+
+
+         
+  
+  
+</body>
+ 
+</html>

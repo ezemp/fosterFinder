@@ -17,7 +17,7 @@
       <ul class="left hide-on-med-and-down">
         <li>Welcome, {{fullname}}</li>
         <li><a href="dashboard">Home</a></li>
-        <li><a href="shelters">My Shelters</a></li>
+        
         <li><a href="resources">Resources</a></li>
 
       </ul>
@@ -34,27 +34,11 @@
     <li>Current Address:{{address}}</li>
     <li>Home Type:{{homeType}}</li>
     <li>Do you have children?:{{children}}</li>
+    <li>{{shelter}}</li>
 
 </ul>
 
-  {{!-- <div class="container">
-  <div id="map" class="col-md-8"></div>
-  <div id="placesList" class="col-md-4"></div>
-</div>
-<!--This is our template. -->
-<!--Data will be inserted in its according place, replacing the brackets.-->
-<div class="container">
-  <div id="map" class="col-md-8"></div>
-  <div id="placesList" class="col-md-4"></div>
-<script id="maps" type="text/x-handlebars-template">
-  {{#each places}}
-    <article class="media">
-      <div class="media-center" {{#if this.img}}  style="background-image:url({{this.img}} )"{{/if}}></div>
-      <div class="media-body"><a><h5 class="media-heading">{{this.name}}<span class="badge">{{this.rating}}</span></h5></a></div>
-    </article>
-  {{/each}}
-</script>
-</div> --}}
+  
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     
